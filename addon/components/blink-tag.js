@@ -5,11 +5,16 @@ export default Component.extend({
   layout,
   tagName: 'h1',
   show: true,
+  handle: '',
   classNameBindings: ['show:invisible'],
   didInsertElement: function() {
     var self = this;
-    setInterval(function() {
+    this.set('handle', setInterval(function() {
       self.toggleProperty('show');
-    }, 300);
+    }, 300));
+  },
+  willDestroy() {
+    clearInterval(this.handle);
+    this._super(...arguments);
   }
 });
